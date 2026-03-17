@@ -1,10 +1,15 @@
 import Layout from '../components/Layout'
-import { HiMiniMagnifyingGlass, HiMiniFunnel, HiMiniArrowPath, HiMiniArrowDownTray, HiMiniChevronLeft, HiMiniChevronRight, HiMiniEye } from 'react-icons/hi2'
-import { useState } from 'react'
+import { HiMiniMagnifyingGlass, HiMiniFunnel, HiMiniArrowPath, HiMiniArrowDownTray, HiMiniChevronLeft, HiMiniChevronRight, HiMiniEye, HiMiniChevronDown, HiMiniChevronUp } from 'react-icons/hi2'
+import { useState, Fragment } from 'react'
 
 export default function OutageList() {
     const [searchTerm, setSearchTerm] = useState('')
     const [statusFilter, setStatusFilter] = useState('All')
+    const [expandedRows, setExpandedRows] = useState({})
+
+    const toggleRow = (id) => {
+        setExpandedRows(prev => ({ ...prev, [id]: !prev[id] }))
+    }
 
     const outages = [
         {
@@ -203,60 +208,84 @@ export default function OutageList() {
                     <table className="w-full">
                         <thead>
                             <tr className="bg-gray-50/80 border-b border-gray-100">
+                                <th className="text-center px-3 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest w-10"></th>
                                 <th className="text-left px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Outage ID</th>
                                 <th className="text-left px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Type</th>
                                 <th className="text-left px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Date & Time</th>
                                 <th className="text-left px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Equipment Type / Equipment</th>
-                                <th className="text-left px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Description</th>
                                 <th className="text-left px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Status</th>
                                 <th className="text-left px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Understudy / Remarks</th>
                                 <th className="text-left px-6 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Planner / TOMS / GNC</th>
                                 <th className="text-center px-4 py-4 text-[10px] font-black text-gray-500 uppercase tracking-widest"></th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-50">
+                        <tbody>
                             {filteredOutages.map((outage) => (
-                                <tr key={outage.id} className="hover:bg-gray-50/50 transition-colors group">
-                                    <td className="px-6 py-4">
-                                        <span className="text-xs font-black text-gso-blue bg-tnblue-50 px-2.5 py-1 rounded-lg whitespace-nowrap">
-                                            {outage.id}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border uppercase tracking-wider whitespace-nowrap ${getTypeStyle(outage.type)}`}>
-                                            {outage.type}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <p className="text-sm font-bold text-gray-900 whitespace-nowrap">{outage.date}</p>
-                                        <p className="text-xs text-gray-400 font-medium mt-0.5 whitespace-nowrap">{outage.time}</p>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{outage.equipmentType}</p>
-                                        <p className="text-sm font-bold text-gray-800 mt-0.5">{outage.equipment}</p>
-                                    </td>
-                                    <td className="px-6 py-4 max-w-xs">
-                                        <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">{outage.description}</p>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className={`text-[10px] font-black px-3 py-1.5 rounded-full border uppercase tracking-wider whitespace-nowrap ${getStatusStyle(outage.status)}`}>
-                                            {outage.status}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 max-w-[200px]">
-                                        <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">{outage.studyRemarks}</p>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className={`text-xs whitespace-nowrap ${getPlannerStyle(outage.plannerStatus)}`}>
-                                            {outage.plannerStatus}
-                                        </span>
-                                    </td>
-                                    <td className="px-4 py-4 text-center">
-                                        <button className="p-2 text-gray-300 hover:text-gso-green transition-colors opacity-0 group-hover:opacity-100">
-                                            <HiMiniEye className="w-4 h-4" />
-                                        </button>
-                                    </td>
-                                </tr>
+                                <Fragment key={outage.id}>
+                                    <tr
+                                        className={`hover:bg-gray-50/50 transition-colors group cursor-pointer border-t border-gray-50 ${expandedRows[outage.id] ? 'bg-gray-50/30' : ''}`}
+                                        onClick={() => toggleRow(outage.id)}
+                                    >
+                                        <td className="px-3 py-4 text-center">
+                                            <button className={`p-1 rounded-md transition-all ${expandedRows[outage.id] ? 'text-gso-green bg-gso-green/10' : 'text-gray-300 group-hover:text-gray-500'}`}>
+                                                {expandedRows[outage.id]
+                                                    ? <HiMiniChevronUp className="w-4 h-4" />
+                                                    : <HiMiniChevronDown className="w-4 h-4" />
+                                                }
+                                            </button>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className="text-xs font-black text-gso-blue bg-tnblue-50 px-2.5 py-1 rounded-lg whitespace-nowrap">
+                                                {outage.id}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border uppercase tracking-wider whitespace-nowrap ${getTypeStyle(outage.type)}`}>
+                                                {outage.type}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <p className="text-sm font-bold text-gray-900 whitespace-nowrap">{outage.date}</p>
+                                            <p className="text-xs text-gray-400 font-medium mt-0.5 whitespace-nowrap">{outage.time}</p>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{outage.equipmentType}</p>
+                                            <p className="text-sm font-bold text-gray-800 mt-0.5">{outage.equipment}</p>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className={`text-[10px] font-black px-3 py-1.5 rounded-full border uppercase tracking-wider whitespace-nowrap ${getStatusStyle(outage.status)}`}>
+                                                {outage.status}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4 max-w-[200px]">
+                                            <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">{outage.studyRemarks}</p>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className={`text-xs whitespace-nowrap ${getPlannerStyle(outage.plannerStatus)}`}>
+                                                {outage.plannerStatus}
+                                            </span>
+                                        </td>
+                                        <td className="px-4 py-4 text-center">
+                                            <button
+                                                className="p-2 text-gray-300 hover:text-gso-green transition-colors opacity-0 group-hover:opacity-100"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <HiMiniEye className="w-4 h-4" />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {/* Embedded Description Row */}
+                                    {expandedRows[outage.id] && (
+                                        <tr className="bg-gray-50/50">
+                                            <td colSpan={9} className="px-6 py-0">
+                                                <div className="py-4 pl-10 pr-6 border-l-2 border-gso-green/30 ml-3">
+                                                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Description</p>
+                                                    <p className="text-sm text-gray-700 leading-relaxed">{outage.description}</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </Fragment>
                             ))}
                         </tbody>
                     </table>
