@@ -6,7 +6,8 @@
       "WebFetch(domain:www.gso.org.my)",
       "WebFetch(domain:www.tnb.com.my)",
       "WebFetch(domain:brandfetch.com)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git push:*)"
     ]
   }
 }
