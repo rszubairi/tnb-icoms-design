@@ -7,7 +7,9 @@
       "WebFetch(domain:www.tnb.com.my)",
       "WebFetch(domain:brandfetch.com)",
       "Bash(curl:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(npm run build:*)"
     ]
   }
 }

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
-import { HiMiniSquares2X2, HiMiniPlusCircle, HiMiniClipboardDocumentCheck, HiMiniArchiveBox, HiMiniCalendarDays, HiMiniShieldCheck, HiMiniBars3, HiMiniBell, HiMiniChevronRight, HiMiniExclamationTriangle, HiMiniCheckCircle, HiMiniInformationCircle, HiMiniXMark, HiMiniChevronDoubleLeft, HiMiniChevronDoubleRight } from 'react-icons/hi2'
+import { HiMiniSquares2X2, HiMiniPlusCircle, HiMiniClipboardDocumentCheck, HiMiniArchiveBox, HiMiniCalendarDays, HiMiniShieldCheck, HiMiniBars3, HiMiniBell, HiMiniChevronRight, HiMiniExclamationTriangle, HiMiniCheckCircle, HiMiniInformationCircle, HiMiniXMark, HiMiniChevronDoubleLeft, HiMiniChevronDoubleRight, HiMiniListBullet } from 'react-icons/hi2'
 
 export default function Layout({ children, title = 'TNB ICOMS 2.0' }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -65,6 +65,11 @@ export default function Layout({ children, title = 'TNB ICOMS 2.0' }) {
             name: 'Dashboard',
             href: '/',
             icon: <HiMiniSquares2X2 className="w-5 h-5" />
+        },
+        {
+            name: 'Outage List',
+            href: '/outage-list',
+            icon: <HiMiniListBullet className="w-5 h-5" />
         },
         {
             name: 'Outage Creation',
