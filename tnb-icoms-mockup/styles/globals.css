@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TNB ICOMS 2.0 Custom Styles */
+
+:root {
+    --tnb-blue-primary: #014b7a;
+    --tnb-blue-secondary: #7399e7;
+    --tnb-dark-bg: #2a363f;
+    --tnb-medium-bg: #404a53;
+    --tnb-light-text: #e1e1e1;
+    --tnb-white: #ffffff;
+    --tnb-gray: #727272;
+}
+
+body {
+    @apply bg-gray-50 text-gray-800;
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* Custom Components */
+
+.btn-primary {
+    @apply bg-tnblue-primary hover:bg-tnblue-dark text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+}
+
+.btn-secondary {
+    @apply bg-tnblue-secondary hover:bg-tnblue-primary text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+}
+
+.btn-outline {
+    @apply border-2 border-tnblue-primary text-tnblue-primary hover:bg-tnblue-primary hover:text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+}
+
+.card {
+    @apply bg-white rounded-lg shadow-md border border-gray-200;
+}
+
+.status-badge {
+    @apply px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.status-draft {
+    @apply bg-gray-100 text-gray-800;
+}
+
+.status-pending {
+    @apply bg-yellow-100 text-yellow-800;
+}
+
+.status-agreed {
+    @apply bg-blue-100 text-blue-800;
+}
+
+.status-confirmed {
+    @apply bg-green-100 text-green-800;
+}
+
+.status-approved {
+    @apply bg-green-200 text-green-900;
+}
+
+.status-active {
+    @apply bg-green-500 text-white;
+}
+
+.status-extended {
+    @apply bg-yellow-500 text-white;
+}
+
+.status-overdue {
+    @apply bg-red-500 text-white;
+}
+
+.navbar {
+    @apply bg-tnblue-primary text-white shadow-lg;
+}
+
+.sidebar {
+    @apply bg-tnblue-dark text-white min-h-screen;
+}
+
+/* Utility Classes */
+
+.text-tnb-blue {
+    @apply text-tnblue-primary;
+}
+
+.bg-tnb-blue {
+    @apply bg-tnblue-primary;
+}
+
+.border-tnb-blue {
+    @apply border-tnblue-primary;
+}
+
+/* Responsive Utilities */
+
+@media (max-width: 768px) {
+    .hidden-mobile {
+        @apply hidden;
+    }
+
+    .mobile-nav {
+        @apply fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg;
+    }
+}
+
+/* Animation Classes */
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Print Styles */
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
