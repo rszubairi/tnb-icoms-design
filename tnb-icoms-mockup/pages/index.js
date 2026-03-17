@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import { HiMiniClipboardDocumentList, HiMiniClock, HiMiniCheckBadge, HiMiniExclamationTriangle, HiMiniPlusCircle, HiMiniCalendarDays, HiMiniArchiveBox } from 'react-icons/hi2'
 
 export default function Dashboard() {
     const stats = [
@@ -7,7 +8,7 @@ export default function Dashboard() {
             value: '12',
             change: '+2.5%',
             trend: 'up',
-            icon: '📋',
+            icon: <HiMiniClipboardDocumentList className="w-6 h-6" />,
             gradient: 'from-amber-500 to-amber-600'
         },
         {
@@ -15,23 +16,23 @@ export default function Dashboard() {
             value: '08',
             change: '-1',
             trend: 'down',
-            icon: '⏳',
-            gradient: 'from-blue-500 to-blue-600'
+            icon: <HiMiniClock className="w-6 h-6" />,
+            gradient: 'from-gso-blue to-gso-blue-dark'
         },
         {
             name: 'Active Auth',
             value: '15',
             change: '+3',
             trend: 'up',
-            icon: '✅',
-            gradient: 'from-emerald-500 to-emerald-600'
+            icon: <HiMiniCheckBadge className="w-6 h-6" />,
+            gradient: 'from-gso-green to-gso-green-dark'
         },
         {
             name: 'Emergency',
             value: '03',
             change: 'Critical',
             trend: 'neutral',
-            icon: '🚨',
+            icon: <HiMiniExclamationTriangle className="w-6 h-6" />,
             gradient: 'from-rose-500 to-rose-600'
         }
     ]
@@ -67,23 +68,20 @@ export default function Dashboard() {
         {
             title: 'Create Request',
             description: 'Submit new outage',
-            icon: '➕',
+            icon: <HiMiniPlusCircle className="w-6 h-6" />,
             href: '/outage-creation',
-            color: 'text-tnblue-primary'
         },
         {
             title: 'Outage Calendar',
             description: 'View 5-week schedule',
-            icon: '📅',
+            icon: <HiMiniCalendarDays className="w-6 h-6" />,
             href: '/calendar',
-            color: 'text-enterprise-info'
         },
         {
             title: 'Historical Data',
             description: 'Access repository',
-            icon: '📁',
+            icon: <HiMiniArchiveBox className="w-6 h-6" />,
             href: '/data-repository',
-            color: 'text-enterprise-success'
         }
     ]
 
@@ -94,7 +92,7 @@ export default function Dashboard() {
                 <div>
                     <h1 className="text-4xl font-black text-gray-900 mb-2 font-display">Dashboard</h1>
                     <p className="text-gray-500 font-medium tracking-tight">
-                        Logged in as <span className="text-tnblue-primary font-bold">Abdul Rahman (TOMS Admin)</span>
+                        Logged in as <span className="text-gso-blue font-bold">Abdul Rahman (TOMS Admin)</span>
                     </p>
                 </div>
                 <div className="mt-4 md:mt-0 flex space-x-3">
@@ -113,7 +111,7 @@ export default function Dashboard() {
                                     {stat.icon}
                                 </div>
                                 <span className={`text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-widest ${
-                                    stat.trend === 'up' ? 'bg-emerald-50 text-emerald-600' : 
+                                    stat.trend === 'up' ? 'bg-gso-green-50 text-gso-green-dark' :
                                     stat.trend === 'down' ? 'bg-rose-50 text-rose-600' : 'bg-gray-50 text-gray-600'
                                 }`}>
                                     {stat.change}
@@ -132,34 +130,34 @@ export default function Dashboard() {
                     <div className="card h-full">
                         <div className="p-8 border-b border-gray-50 flex items-center justify-between">
                             <h2 className="text-xl font-bold font-display">System Activity</h2>
-                            <button className="text-xs font-bold text-tnblue-primary uppercase tracking-widest hover:underline transition-all">View Full Audit Log</button>
+                            <button className="text-xs font-bold text-gso-green uppercase tracking-widest hover:underline transition-all">View Full Audit Log</button>
                         </div>
                         <div className="p-4">
                             {recentActivity.map((activity, idx) => (
-                                <div 
-                                    key={activity.id} 
+                                <div
+                                    key={activity.id}
                                     className={`p-6 rounded-2xl hover:bg-gray-50 transition-all cursor-pointer group ${
                                         idx !== recentActivity.length - 1 ? 'mb-2' : ''
                                     }`}
                                 >
                                     <div className="flex items-start justify-between mb-2">
                                         <div className="flex items-center space-x-3">
-                                            <span className="text-xs font-black text-tnblue-primary bg-tnblue-50 px-2.5 py-1 rounded-lg">
+                                            <span className="text-xs font-black text-gso-blue bg-tnblue-50 px-2.5 py-1 rounded-lg">
                                                 {activity.id}
                                             </span>
-                                            <h3 className="font-bold text-gray-900 group-hover:text-tnblue-primary transition-colors">{activity.title}</h3>
+                                            <h3 className="font-bold text-gray-900 group-hover:text-gso-green transition-colors">{activity.title}</h3>
                                         </div>
                                         <span className={`status-badge text-[10px] ${
-                                            activity.status === 'Confirmed' ? 'status-confirmed' : 
+                                            activity.status === 'Confirmed' ? 'status-confirmed' :
                                             activity.status === 'In-Study' ? 'status-agreed' : 'status-pending'
                                         }`}>
                                             {activity.status}
                                         </span>
                                     </div>
                                     <p className="text-sm text-gray-500 mb-4 line-clamp-1">{activity.description}</p>
-                                    <div className="flex items-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                                        <span className="mr-4">🕘 {activity.time}</span>
-                                        <span>⚙️ {activity.type} Outage</span>
+                                    <div className="flex items-center text-[10px] font-bold text-gray-400 uppercase tracking-widest space-x-4">
+                                        <span className="flex items-center"><HiMiniClock className="w-3 h-3 mr-1" /> {activity.time}</span>
+                                        <span className="flex items-center"><HiMiniExclamationTriangle className="w-3 h-3 mr-1" /> {activity.type} Outage</span>
                                     </div>
                                 </div>
                             ))}
@@ -170,16 +168,16 @@ export default function Dashboard() {
                 {/* Quick Actions & Navigation */}
                 <div className="lg:col-span-1 space-y-8">
                     <div className="card p-8 bg-tnblue-dark text-white overflow-hidden relative">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-gso-green/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
                         <h2 className="text-xl font-bold font-display mb-6 relative z-10">Quick Actions</h2>
                         <div className="space-y-4 relative z-10">
                             {quickActions.map((action) => (
-                                <a 
+                                <a
                                     key={action.title}
                                     href={action.href}
-                                    className="flex items-center p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all group"
+                                    className="flex items-center p-4 rounded-xl bg-white/5 hover:bg-gso-green/10 border border-white/10 hover:border-gso-green/30 transition-all group"
                                 >
-                                    <span className="text-2xl mr-4 group-hover:scale-125 transition-transform">{action.icon}</span>
+                                    <span className="text-2xl mr-4 text-white/60 group-hover:text-gso-green group-hover:scale-125 transition-all">{action.icon}</span>
                                     <div>
                                         <p className="font-bold text-sm leading-none mb-1">{action.title}</p>
                                         <p className="text-[10px] text-white/50 uppercase tracking-widest font-bold">{action.description}</p>
@@ -189,25 +187,25 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="card p-8 border-l-4 border-tnblue-primary">
+                    <div className="card p-8 border-l-4 border-gso-green">
                         <div className="flex items-center justify-between mb-4">
                             <h2 className="text-lg font-bold font-display">System Health</h2>
-                            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                            <span className="w-2 h-2 bg-gso-green rounded-full"></span>
                         </div>
                         <div className="space-y-4">
                             <div className="flex items-center justify-between text-xs">
                                 <span className="font-bold text-gray-500 uppercase tracking-widest">Database Cluster</span>
-                                <span className="text-green-600 font-black">99.9% Uptime</span>
+                                <span className="text-gso-green-dark font-black">99.9% Uptime</span>
                             </div>
                             <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
-                                <div className="h-full bg-enterprise-success w-[99.9%]"></div>
+                                <div className="h-full bg-gso-green w-[99.9%]"></div>
                             </div>
                             <div className="flex items-center justify-between text-xs">
                                 <span className="font-bold text-gray-500 uppercase tracking-widest">GSO Mainframe Sync</span>
-                                <span className="text-green-600 font-black">Live</span>
+                                <span className="text-gso-green-dark font-black">Live</span>
                             </div>
                             <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
-                                <div className="h-full bg-enterprise-success w-[85%]"></div>
+                                <div className="h-full bg-gso-green w-[85%]"></div>
                             </div>
                         </div>
                     </div>
