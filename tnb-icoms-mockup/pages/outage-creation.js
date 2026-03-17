@@ -110,11 +110,11 @@ export default function OutageCreation() {
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Zone</label>
+                                            <label className="form-label">Zone</label>
                                             <select
                                                 value={formData.zone}
                                                 onChange={(e) => handleInputChange('zone', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="form-input"
                                                 required
                                             >
                                                 <option value="">Select Zone</option>
@@ -124,11 +124,11 @@ export default function OutageCreation() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Station</label>
+                                            <label className="form-label">Station</label>
                                             <select
                                                 value={formData.station}
                                                 onChange={(e) => handleInputChange('station', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="form-input"
                                                 required
                                             >
                                                 <option value="">Select Station</option>
@@ -141,11 +141,11 @@ export default function OutageCreation() {
 
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Voltage</label>
+                                            <label className="form-label">Voltage</label>
                                             <select
                                                 value={formData.voltage}
                                                 onChange={(e) => handleInputChange('voltage', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="form-input"
                                                 required
                                             >
                                                 <option value="">Select Voltage</option>
@@ -155,11 +155,11 @@ export default function OutageCreation() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Equipment Type</label>
+                                            <label className="form-label">Equipment Type</label>
                                             <select
                                                 value={formData.equipmentType}
                                                 onChange={(e) => handleInputChange('equipmentType', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="form-input"
                                                 required
                                             >
                                                 <option value="">Select Type</option>
@@ -478,14 +478,14 @@ export default function OutageCreation() {
                         </div>
 
                         {/* Form Actions */}
-                        <div className="mt-6 flex justify-between">
+                        <div className="mt-8 flex justify-between">
                             <button
                                 type="button"
                                 onClick={prevStep}
                                 disabled={step === 1}
-                                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="btn-secondary disabled:opacity-30"
                             >
-                                Previous
+                                ← Previous Step
                             </button>
                             {step < 3 ? (
                                 <button
@@ -493,14 +493,14 @@ export default function OutageCreation() {
                                     onClick={nextStep}
                                     className="btn-primary"
                                 >
-                                    Next
+                                    Continue Transaction →
                                 </button>
                             ) : (
                                 <button
                                     type="submit"
-                                    className="btn-primary"
+                                    className="btn-primary bg-enterprise-success hover:bg-emerald-700 shadow-enterprise-lg"
                                 >
-                                    Create Outage
+                                    Finalize & Submit Request
                                 </button>
                             )}
                         </div>
