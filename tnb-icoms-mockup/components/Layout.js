@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
-import { HiMiniSquares2X2, HiMiniPlusCircle, HiMiniClipboardDocumentCheck, HiMiniArchiveBox, HiMiniCalendarDays, HiMiniShieldCheck, HiMiniBars3, HiMiniBell, HiMiniChevronRight, HiMiniExclamationTriangle, HiMiniCheckCircle, HiMiniInformationCircle, HiMiniXMark, HiMiniChevronDoubleLeft, HiMiniChevronDoubleRight, HiMiniListBullet } from 'react-icons/hi2'
+import { HiMiniSquares2X2, HiMiniPlusCircle, HiMiniClipboardDocumentCheck, HiMiniArchiveBox, HiMiniCalendarDays, HiMiniShieldCheck, HiMiniBars3, HiMiniBell, HiMiniChevronRight, HiMiniExclamationTriangle, HiMiniCheckCircle, HiMiniInformationCircle, HiMiniXMark, HiMiniChevronDoubleLeft, HiMiniChevronDoubleRight, HiMiniListBullet, HiMiniBolt, HiMiniTableCells, HiMiniPencilSquare, HiMiniDocumentChartBar, HiMiniCheckBadge } from 'react-icons/hi2'
 
 export default function Layout({ children, title = 'TNB ICOMS 2.0' }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -62,39 +62,43 @@ export default function Layout({ children, title = 'TNB ICOMS 2.0' }) {
 
     const navigation = [
         {
-            name: 'Dashboard',
-            href: '/',
-            icon: <HiMiniSquares2X2 className="w-5 h-5" />
+            section: 'Overview',
+            items: [
+                { name: 'Dashboard', href: '/', icon: <HiMiniSquares2X2 className="w-5 h-5" /> },
+                { name: 'Outage Status', href: '/outage-status', icon: <HiMiniBolt className="w-5 h-5" /> },
+            ]
         },
         {
-            name: 'Outage List',
-            href: '/outage-list',
-            icon: <HiMiniListBullet className="w-5 h-5" />
+            section: 'Outage Requests',
+            items: [
+                { name: 'Outage List', href: '/outage-list', icon: <HiMiniListBullet className="w-5 h-5" /> },
+                { name: 'Outage Creation', href: '/outage-creation', icon: <HiMiniPlusCircle className="w-5 h-5" /> },
+                { name: 'Emergency Outage', href: '/emergency-outage', icon: <HiMiniExclamationTriangle className="w-5 h-5" /> },
+                { name: 'Change Request', href: '/change-request', icon: <HiMiniPencilSquare className="w-5 h-5" /> },
+            ]
         },
         {
-            name: 'Outage Creation',
-            href: '/outage-creation',
-            icon: <HiMiniPlusCircle className="w-5 h-5" />
+            section: 'Approvals',
+            items: [
+                { name: 'Pending Review', href: '/pending-review', icon: <HiMiniClipboardDocumentCheck className="w-5 h-5" /> },
+                { name: 'Confirmation', href: '/confirmation', icon: <HiMiniCheckBadge className="w-5 h-5" /> },
+            ]
         },
         {
-            name: 'Pending Review',
-            href: '/pending-review',
-            icon: <HiMiniClipboardDocumentCheck className="w-5 h-5" />
+            section: 'Authorization',
+            items: [
+                { name: 'Authorization in Force', href: '/authorization', icon: <HiMiniShieldCheck className="w-5 h-5" /> },
+                { name: 'Authorization List', href: '/authorization-list', icon: <HiMiniTableCells className="w-5 h-5" /> },
+            ]
         },
         {
-            name: 'Data Repository',
-            href: '/data-repository',
-            icon: <HiMiniArchiveBox className="w-5 h-5" />
-        },
-        {
-            name: 'Calendar',
-            href: '/calendar',
-            icon: <HiMiniCalendarDays className="w-5 h-5" />
-        },
-        {
-            name: 'Authorization',
-            href: '/authorization',
-            icon: <HiMiniShieldCheck className="w-5 h-5" />
+            section: 'System & Reports',
+            items: [
+                { name: 'Data Repository', href: '/data-repository', icon: <HiMiniArchiveBox className="w-5 h-5" /> },
+                { name: 'Reports', href: '/reports', icon: <HiMiniDocumentChartBar className="w-5 h-5" /> },
+                { name: 'Calendar', href: '/calendar', icon: <HiMiniCalendarDays className="w-5 h-5" /> },
+                { name: 'Off-Point List', href: '/off-point-list', icon: <HiMiniTableCells className="w-5 h-5" /> },
+            ]
         },
     ]
 
@@ -150,26 +154,35 @@ export default function Layout({ children, title = 'TNB ICOMS 2.0' }) {
                         )}
                     </div>
 
-                    <nav className={`flex-1 overflow-y-auto py-6 space-y-1 transition-all duration-300 ${sidebarCollapsed ? 'px-2' : 'px-3'}`}>
-                        {navigation.map((item) => (
-                            <Link
-                                key={item.name}
-                                href={item.href}
-                                title={sidebarCollapsed ? item.name : undefined}
-                                className={`group flex items-center text-sm font-semibold rounded-xl hover:bg-gso-green/10 hover:text-gso-green transition-all duration-200 ${
-                                    sidebarCollapsed ? 'justify-center px-2 py-3' : 'px-4 py-3'
-                                }`}
-                            >
-                                <span className={`text-white/60 group-hover:text-gso-green group-hover:scale-110 transition-all ${sidebarCollapsed ? '' : 'mr-3'}`}>{item.icon}</span>
+                    <nav className={`flex-1 overflow-y-auto py-6 space-y-4 transition-all duration-300 ${sidebarCollapsed ? 'px-2' : 'px-3'}`}>
+                        {navigation.map((group) => (
+                            <div key={group.section}>
                                 {!sidebarCollapsed && (
-                                    <>
-                                        <span className="text-white/80 group-hover:text-white">{item.name}</span>
-                                        <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-gso-green">
-                                            <HiMiniChevronRight className="w-4 h-4" />
-                                        </span>
-                                    </>
+                                    <p className="px-4 mb-1.5 text-[9px] font-black text-white/30 uppercase tracking-widest">{group.section}</p>
                                 )}
-                            </Link>
+                                <div className="space-y-1">
+                                    {group.items.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            href={item.href}
+                                            title={sidebarCollapsed ? item.name : undefined}
+                                            className={`group flex items-center text-sm font-semibold rounded-xl hover:bg-gso-green/10 hover:text-gso-green transition-all duration-200 ${
+                                                sidebarCollapsed ? 'justify-center px-2 py-3' : 'px-4 py-3'
+                                            }`}
+                                        >
+                                            <span className={`text-white/60 group-hover:text-gso-green group-hover:scale-110 transition-all ${sidebarCollapsed ? '' : 'mr-3'}`}>{item.icon}</span>
+                                            {!sidebarCollapsed && (
+                                                <>
+                                                    <span className="text-white/80 group-hover:text-white">{item.name}</span>
+                                                    <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-gso-green">
+                                                        <HiMiniChevronRight className="w-4 h-4" />
+                                                    </span>
+                                                </>
+                                            )}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
                         ))}
                     </nav>
 
