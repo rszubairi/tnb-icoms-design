@@ -78,43 +78,51 @@ export default function Authorization() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                {authorizations.map((auth) => (
-                    <div key={auth.id} className={`card ${auth.bgColor} border-2 ${auth.indicatorColor === 'bg-red-500' ? 'border-red-200 shadow-lg' : 'border-gray-200'}`}>
-                        <div className="p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <div className="flex items-center space-x-2">
-                                    <span className={`w-3 h-3 rounded-full animate-pulse ${auth.indicatorColor}`}></span>
-                                    <span className={`text-sm font-bold uppercase ${auth.color}`}>{auth.status}</span>
-                                </div>
-                                <div className="text-xs font-medium text-gray-500">{auth.id}</div>
-                            </div>
-                            
-                            <h3 className="text-lg font-bold text-gray-900 mb-1">{auth.equipment} @ {auth.station}</h3>
-                            <p className="text-sm text-gray-600 mb-4">{auth.zone} Zone • {auth.voltage}</p>
-                            
-                            <div className="space-y-3 mb-6">
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-gray-500">Authorized At:</span>
-                                    <span className="font-medium text-gray-800">{auth.startTime}</span>
-                                </div>
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-gray-500">Est. Restoration:</span>
-                                    <span className="font-medium text-gray-800">{auth.estimatedRestoration}</span>
-                                </div>
-                                <div className="flex justify-between items-center py-2 border-t border-gray-200 mt-2">
-                                    <span className="text-sm font-bold text-gray-700">Time Remaining:</span>
-                                    <span className={`text-xl font-mono font-bold ${auth.color}`}>{auth.timeRemaining}</span>
-                                </div>
-                            </div>
-                            
-                            <div className="flex space-x-2">
-                                <button className="flex-1 btn-outline bg-white text-xs">Request Ext.</button>
-                                <button className="flex-1 btn-primary text-xs">Authorize Restore</button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+            <div className="card overflow-hidden mb-8">
+                <div className="overflow-x-auto">
+                    <table className="w-full">
+                        <thead>
+                            <tr className="bg-gray-50/80 border-b border-gray-100">
+                                <th className="text-left px-4 py-3 text-[10px] font-black text-gray-500 uppercase tracking-widest">Status</th>
+                                <th className="text-left px-4 py-3 text-[10px] font-black text-gray-500 uppercase tracking-widest">Auth ID</th>
+                                <th className="text-left px-4 py-3 text-[10px] font-black text-gray-500 uppercase tracking-widest">Equipment / Station</th>
+                                <th className="text-left px-4 py-3 text-[10px] font-black text-gray-500 uppercase tracking-widest">Zone / Voltage</th>
+                                <th className="text-left px-4 py-3 text-[10px] font-black text-gray-500 uppercase tracking-widest">Authorized At</th>
+                                <th className="text-left px-4 py-3 text-[10px] font-black text-gray-500 uppercase tracking-widest">Est. Restoration</th>
+                                <th className="text-left px-4 py-3 text-[10px] font-black text-gray-500 uppercase tracking-widest">Time Remaining</th>
+                                <th className="text-left px-4 py-3 text-[10px] font-black text-gray-500 uppercase tracking-widest">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {authorizations.map((auth) => (
+                                <tr key={auth.id} className={`border-t border-gray-50 ${auth.bgColor}`}>
+                                    <td className="px-4 py-3">
+                                        <div className="flex items-center space-x-2">
+                                            <span className={`w-2 h-2 rounded-full animate-pulse ${auth.indicatorColor}`}></span>
+                                            <span className={`text-xs font-bold uppercase whitespace-nowrap ${auth.color}`}>{auth.status}</span>
+                                        </div>
+                                    </td>
+                                    <td className="px-4 py-3 text-xs font-medium text-gray-500 whitespace-nowrap">{auth.id}</td>
+                                    <td className="px-4 py-3">
+                                        <p className="text-sm font-bold text-gray-900 whitespace-nowrap">{auth.equipment} @ {auth.station}</p>
+                                    </td>
+                                    <td className="px-4 py-3 text-xs text-gray-600 whitespace-nowrap">{auth.zone} Zone • {auth.voltage}</td>
+                                    <td className="px-4 py-3 text-xs font-medium text-gray-800 whitespace-nowrap">{auth.startTime}</td>
+                                    <td className="px-4 py-3 text-xs font-medium text-gray-800 whitespace-nowrap">{auth.estimatedRestoration}</td>
+                                    <td className="px-4 py-3">
+                                        <span className={`text-sm font-mono font-bold whitespace-nowrap ${auth.color}`}>{auth.timeRemaining}</span>
+                                    </td>
+                                    <td className="px-4 py-3">
+                                        <div className="flex space-x-2">
+                                            <button className="btn-outline bg-white text-[10px] px-2 py-1">Request Ext.</button>
+                                            <button className="btn-primary text-[10px] px-2 py-1">Authorize Restore</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div className="card p-6">

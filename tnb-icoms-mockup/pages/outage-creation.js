@@ -1,8 +1,10 @@
 import Layout from '../components/Layout'
 import { useState } from 'react'
+import { HiMiniChevronDown, HiMiniChevronUp } from 'react-icons/hi2'
 
 export default function OutageCreation() {
     const [step, setStep] = useState(1)
+    const [infoExpanded, setInfoExpanded] = useState(false)
     const [formData, setFormData] = useState({
         zone: '',
         station: '',
@@ -139,7 +141,7 @@ export default function OutageCreation() {
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="form-label">Voltage</label>
                                             <select
@@ -168,27 +170,27 @@ export default function OutageCreation() {
                                                 ))}
                                             </select>
                                         </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Line Filter</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Line Filter</label>
                                             <select
                                                 value={formData.lineFilter}
                                                 onChange={(e) => handleInputChange('lineFilter', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                             >
                                                 <option value="Single">Single</option>
                                                 <option value="Tee-Off">Tee-Off</option>
                                                 <option value="Quad">Quad</option>
                                             </select>
                                         </div>
-                                    </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Equipment</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Equipment</label>
                                             <select
                                                 value={formData.equipment}
                                                 onChange={(e) => handleInputChange('equipment', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                                 required
                                             >
                                                 <option value="">Select Equipment</option>
@@ -198,8 +200,11 @@ export default function OutageCreation() {
                                                 <option value="CB-102">CB-102</option>
                                             </select>
                                         </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Outage Type</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Outage Type</label>
                                             <div className="flex space-x-4">
                                                 <label className="flex items-center">
                                                     <input type="radio" name="outageType" value="Planned" checked={formData.outageType === 'Planned'} onChange={(e) => handleInputChange('outageType', e.target.value)} className="mr-2" />
@@ -215,22 +220,22 @@ export default function OutageCreation() {
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Work Type</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Work Type</label>
                                             <div className="flex space-x-4">
-                                                <label className="flex items-center">
+                                                <label className="flex items-center text-sm">
                                                     <input type="radio" name="workType" value="Dead" checked={formData.workType === 'Dead'} onChange={(e) => handleInputChange('workType', e.target.value)} className="mr-2" />
                                                     Dead
                                                 </label>
-                                                <label className="flex items-center">
+                                                <label className="flex items-center text-sm">
                                                     <input type="radio" name="workType" value="Live" checked={formData.workType === 'Live'} onChange={(e) => handleInputChange('workType', e.target.value)} className="mr-2" />
                                                     Live
                                                 </label>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="flex items-center space-x-3">
                                             <input
                                                 type="checkbox"
@@ -239,44 +244,44 @@ export default function OutageCreation() {
                                                 onChange={(e) => handleInputChange('ptw', e.target.checked)}
                                                 className="w-4 h-4 text-tnblue-primary focus:ring-tnblue-primary border-gray-300 rounded"
                                             />
-                                            <label htmlFor="ptw" className="text-sm font-medium text-gray-700">PTW Required</label>
+                                            <label htmlFor="ptw" className="text-xs font-medium text-gray-700">PTW Required</label>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Start Date & Time</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Start Date & Time</label>
                                             <div className="grid grid-cols-2 gap-2">
                                                 <input
                                                     type="date"
                                                     value={formData.dateStart}
                                                     onChange={(e) => handleInputChange('dateStart', e.target.value)}
-                                                    className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                    className="px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                                     required
                                                 />
                                                 <input
                                                     type="time"
                                                     value={formData.timeStart}
                                                     onChange={(e) => handleInputChange('timeStart', e.target.value)}
-                                                    className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                    className="px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                                 />
                                             </div>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">End Date & Time</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">End Date & Time</label>
                                             <div className="grid grid-cols-2 gap-2">
                                                 <input
                                                     type="date"
                                                     value={formData.dateEnd}
                                                     onChange={(e) => handleInputChange('dateEnd', e.target.value)}
-                                                    className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                    className="px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                                     required
                                                 />
                                                 <input
                                                     type="time"
                                                     value={formData.timeEnd}
                                                     onChange={(e) => handleInputChange('timeEnd', e.target.value)}
-                                                    className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                    className="px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                                 />
                                             </div>
                                         </div>
@@ -290,11 +295,11 @@ export default function OutageCreation() {
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Additional Equipment Type</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Additional Equipment Type</label>
                                             <select
                                                 value={formData.additionalEquipmentType}
                                                 onChange={(e) => handleInputChange('additionalEquipmentType', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                             >
                                                 <option value="">Select Additional Type</option>
                                                 <option value="All">All Equipment</option>
@@ -304,7 +309,7 @@ export default function OutageCreation() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Additional Equipment</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Additional Equipment</label>
                                             <select
                                                 multiple
                                                 value={formData.additionalEquipment}
@@ -312,7 +317,7 @@ export default function OutageCreation() {
                                                     const options = Array.from(e.target.selectedOptions, option => option.value)
                                                     handleInputChange('additionalEquipment', options)
                                                 }}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary h-32"
+                                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary h-32"
                                             >
                                                 <option value="TR-003">TR-003</option>
                                                 <option value="TR-004">TR-004</option>
@@ -349,11 +354,11 @@ export default function OutageCreation() {
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Sequence</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Sequence</label>
                                             <select
                                                 value={formData.sequence}
                                                 onChange={(e) => handleInputChange('sequence', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                             >
                                                 <option value="">Select Sequence</option>
                                                 {sequences.map(seq => (
@@ -362,11 +367,11 @@ export default function OutageCreation() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Restoration Time</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Restoration Time</label>
                                             <select
                                                 value={formData.restoration}
                                                 onChange={(e) => handleInputChange('restoration', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                             >
                                                 <option value="">Select Restoration</option>
                                                 {restorations.map(rest => (
@@ -378,11 +383,11 @@ export default function OutageCreation() {
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Job Type</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Job Type</label>
                                             <select
                                                 value={formData.jobType}
                                                 onChange={(e) => handleInputChange('jobType', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                             >
                                                 {jobTypes.map(job => (
                                                     <option key={job} value={job}>{job}</option>
@@ -390,11 +395,11 @@ export default function OutageCreation() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Project</label>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1.5">Project</label>
                                             <select
                                                 value={formData.project}
                                                 onChange={(e) => handleInputChange('project', e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                             >
                                                 <option value="">Select Project</option>
                                                 <option value="TP-001">TP-001 - System Upgrade</option>
@@ -404,18 +409,18 @@ export default function OutageCreation() {
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                        <label className="block text-xs font-medium text-gray-700 mb-1.5">Description</label>
                                         <textarea
                                             value={formData.description}
                                             onChange={(e) => handleInputChange('description', e.target.value)}
                                             rows={4}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                             placeholder="Enter detailed description of the outage..."
                                         ></textarea>
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">Point of Contact (PIC)</label>
+                                        <label className="block text-xs font-medium text-gray-700 mb-1.5">Point of Contact (PIC)</label>
                                         <div className="space-y-2">
                                             {formData.pic.map((pic, index) => (
                                                 <div key={index} className="flex space-x-2">
@@ -428,7 +433,7 @@ export default function OutageCreation() {
                                                             handleInputChange('pic', newPic)
                                                         }}
                                                         placeholder="Name"
-                                                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                        className="flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                                     />
                                                     <input
                                                         type="email"
@@ -439,7 +444,7 @@ export default function OutageCreation() {
                                                             handleInputChange('pic', newPic)
                                                         }}
                                                         placeholder="Email"
-                                                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                        className="flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                                     />
                                                     <input
                                                         type="tel"
@@ -450,7 +455,7 @@ export default function OutageCreation() {
                                                             handleInputChange('pic', newPic)
                                                         }}
                                                         placeholder="Phone"
-                                                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
+                                                        className="flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tnblue-primary"
                                                     />
                                                     <button
                                                         type="button"
@@ -508,69 +513,80 @@ export default function OutageCreation() {
 
                     {/* Information Sidebar */}
                     <div className="lg:col-span-1">
-                        <div className="card p-6 space-y-6">
-                            <h3 className="text-lg font-semibold text-gray-900">Information</h3>
+                        <div className="card overflow-hidden">
+                            <button
+                                type="button"
+                                onClick={() => setInfoExpanded(!infoExpanded)}
+                                className="w-full flex items-center justify-between p-4"
+                            >
+                                <h3 className="text-sm font-semibold text-gray-900">Information</h3>
+                                {infoExpanded ? <HiMiniChevronUp className="w-4 h-4 text-gray-400" /> : <HiMiniChevronDown className="w-4 h-4 text-gray-400" />}
+                            </button>
 
-                            {/* SLD Download */}
-                            <div className="border-t border-gray-200 pt-4">
-                                <h4 className="font-medium text-gray-900 mb-2">Single Line Diagram</h4>
-                                <p className="text-sm text-gray-600 mb-3">Download SLD for selected station</p>
-                                <button className="btn-outline w-full">
-                                    Download SLD (PDF)
-                                </button>
-                            </div>
+                            {infoExpanded && (
+                                <div className="px-4 pb-4 space-y-4">
+                                    {/* SLD Download */}
+                                    <div className="border-t border-gray-200 pt-3">
+                                        <h4 className="text-xs font-medium text-gray-900 mb-1">Single Line Diagram</h4>
+                                        <p className="text-xs text-gray-600 mb-2">Download SLD for selected station</p>
+                                        <button className="btn-outline w-full text-xs py-1.5">
+                                            Download SLD (PDF)
+                                        </button>
+                                    </div>
 
-                            {/* Conflicting Lines */}
-                            <div className="border-t border-gray-200 pt-4">
-                                <h4 className="font-medium text-gray-900 mb-2">Conflicting Lines</h4>
-                                <p className="text-sm text-gray-600 mb-3">No conflicting lines detected</p>
-                                <div className="text-xs text-green-600">✓ Safe to proceed</div>
-                            </div>
+                                    {/* Conflicting Lines */}
+                                    <div className="border-t border-gray-200 pt-3">
+                                        <h4 className="text-xs font-medium text-gray-900 mb-1">Conflicting Lines</h4>
+                                        <p className="text-xs text-gray-600 mb-2">No conflicting lines detected</p>
+                                        <div className="text-xs text-green-600">✓ Safe to proceed</div>
+                                    </div>
 
-                            {/* Equipment History */}
-                            <div className="border-t border-gray-200 pt-4">
-                                <h4 className="font-medium text-gray-900 mb-2">Equipment History</h4>
-                                <p className="text-sm text-gray-600 mb-3">Last maintenance: 15 days ago</p>
-                                <button className="btn-outline w-full">
-                                    View History
-                                </button>
-                            </div>
+                                    {/* Equipment History */}
+                                    <div className="border-t border-gray-200 pt-3">
+                                        <h4 className="text-xs font-medium text-gray-900 mb-1">Equipment History</h4>
+                                        <p className="text-xs text-gray-600 mb-2">Last maintenance: 15 days ago</p>
+                                        <button className="btn-outline w-full text-xs py-1.5">
+                                            View History
+                                        </button>
+                                    </div>
 
-                            {/* Project Information */}
-                            {formData.jobType !== 'Routine Maintenance' && (
-                                <div className="border-t border-gray-200 pt-4">
-                                    <h4 className="font-medium text-gray-900 mb-2">Project Information</h4>
-                                    <p className="text-sm text-gray-600 mb-3">Project: {formData.project || 'Not selected'}</p>
-                                    <button className="btn-outline w-full">
-                                        View Project Details
-                                    </button>
+                                    {/* Project Information */}
+                                    {formData.jobType !== 'Routine Maintenance' && (
+                                        <div className="border-t border-gray-200 pt-3">
+                                            <h4 className="text-xs font-medium text-gray-900 mb-1">Project Information</h4>
+                                            <p className="text-xs text-gray-600 mb-2">Project: {formData.project || 'Not selected'}</p>
+                                            <button className="btn-outline w-full text-xs py-1.5">
+                                                View Project Details
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {/* Form Summary */}
+                                    <div className="border-t border-gray-200 pt-3">
+                                        <h4 className="text-xs font-medium text-gray-900 mb-2">Form Summary</h4>
+                                        <div className="space-y-1.5 text-xs">
+                                            <div className="flex justify-between">
+                                                <span className="text-gray-600">Zone:</span>
+                                                <span className="font-medium">{formData.zone || 'Not selected'}</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-gray-600">Station:</span>
+                                                <span className="font-medium">{formData.station || 'Not selected'}</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-gray-600">Equipment:</span>
+                                                <span className="font-medium">{formData.equipment || 'Not selected'}</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-gray-600">Duration:</span>
+                                                <span className="font-medium">
+                                                    {formData.dateStart && formData.dateEnd ? `${formData.dateStart} to ${formData.dateEnd}` : 'Not set'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
-
-                            {/* Form Summary */}
-                            <div className="border-t border-gray-200 pt-4">
-                                <h4 className="font-medium text-gray-900 mb-3">Form Summary</h4>
-                                <div className="space-y-2 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Zone:</span>
-                                        <span className="font-medium">{formData.zone || 'Not selected'}</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Station:</span>
-                                        <span className="font-medium">{formData.station || 'Not selected'}</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Equipment:</span>
-                                        <span className="font-medium">{formData.equipment || 'Not selected'}</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Duration:</span>
-                                        <span className="font-medium">
-                                            {formData.dateStart && formData.dateEnd ? `${formData.dateStart} to ${formData.dateEnd}` : 'Not set'}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
